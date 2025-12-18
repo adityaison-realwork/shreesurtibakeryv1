@@ -17,20 +17,25 @@ const Menu: React.FC = () => {
 
   // Helper to determine grid classes based on index to create a "diverse" layout
   const getGridClasses = (index: number) => {
-    // Pattern: 
-    // 0: Big Square (2x2)
-    // 1: Tall (1x2)
-    // 2: Small (1x1)
-    // 3: Wide (2x1)
-    // 4: Small (1x1)
-    // 5: Small (1x1)
-    const patternIndex = index % 6;
-    switch (patternIndex) {
-      case 0: return 'md:col-span-2 md:row-span-2 aspect-square md:aspect-auto';
-      case 1: return 'md:col-span-1 md:row-span-2 aspect-[4/5]';
-      case 3: return 'md:col-span-2 md:row-span-1 aspect-[2/1]';
-      default: return 'md:col-span-1 md:row-span-1 aspect-square';
-    }
+    const i = index % 6;
+    
+    // Base Layout (Mobile - 2 Columns)
+    // We define explicit mobile classes to create a mosaic instead of a stack
+    let mobileClass = 'col-span-1 row-span-1';
+    
+    if (i === 0) mobileClass = 'col-span-2 row-span-2'; // Large Highlight
+    else if (i === 1) mobileClass = 'col-span-1 row-span-2'; // Tall
+    else if (i === 3) mobileClass = 'col-span-2 row-span-1'; // Wide Banner
+
+    // Desktop Layout (MD - 3+ Columns)
+    // Overrides the mobile classes
+    let desktopClass = 'md:col-span-1 md:row-span-1';
+    
+    if (i === 0) desktopClass = 'md:col-span-2 md:row-span-2';
+    else if (i === 1) desktopClass = 'md:col-span-1 md:row-span-2';
+    else if (i === 3) desktopClass = 'md:col-span-2 md:row-span-1';
+
+    return `${mobileClass} ${desktopClass}`;
   };
 
   return (
@@ -75,7 +80,7 @@ const Menu: React.FC = () => {
 
       {/* Diverse Grid */}
       {filteredProducts.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-[250px]">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-[200px] grid-flow-dense">
           {filteredProducts.map((product, index) => {
             const gridClass = getGridClasses(index);
             
@@ -99,11 +104,11 @@ const Menu: React.FC = () => {
                    ))}
                 </div>
 
-                <div className="absolute bottom-0 left-0 p-6 w-full">
-                   <h3 className="text-white text-2xl font-black leading-tight mb-1">{product.name}</h3>
+                <div className="absolute bottom-0 left-0 p-4 md:p-6 w-full">
+                   <h3 className="text-white text-lg md:text-2xl font-black leading-tight mb-1">{product.name}</h3>
                    <div className="flex justify-between items-end">
-                      <p className="text-white/80 text-sm font-medium line-clamp-2 max-w-[70%]">{product.description}</p>
-                      <div className="text-white font-bold text-xl">${product.price.toFixed(2)}</div>
+                      <p className="text-white/80 text-xs md:text-sm font-medium line-clamp-2 max-w-[70%] hidden sm:block">{product.description}</p>
+                      <div className="text-white font-bold text-base md:text-xl">₹{product.price.toFixed(2)}</div>
                    </div>
                 </div>
               </div>
@@ -117,7 +122,7 @@ const Menu: React.FC = () => {
         </div>
       )}
       
-      {/* Feature Section (Replaces Quick Add) */}
+      {/* Feature Section */}
       <div className="mt-16 mb-8">
         <div className="bg-charcoal dark:bg-surface-dark rounded-[2.5rem] shadow-2xl overflow-hidden relative">
            {/* Decorative */}

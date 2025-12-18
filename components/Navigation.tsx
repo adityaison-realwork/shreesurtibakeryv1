@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, Link, useLocation } from 'react-router-dom';
 import { NAV_ITEMS, APP_NAME } from '../constants';
 
 export const TopBar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
+  const isHome = location.pathname === '/';
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -11,21 +13,30 @@ export const TopBar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Text color logic: White when not scrolled (on dark hero), specific colors when scrolled (on white background)
-  const textColorClass = scrolled ? 'text-charcoal dark:text-white' : 'text-white';
+  // Text color logic: 
+  // - On Home: White when top, Dark when scrolled.
+  // - Other pages: Always Dark (as they have light backgrounds).
+  const isDarkText = !isHome || scrolled;
+  
+  const textColorClass = isDarkText ? 'text-charcoal dark:text-white' : 'text-white';
+  
   const navLinkClass = (isActive: boolean) => 
     `text-sm font-bold tracking-wide uppercase transition-all hover:text-primary ${
       isActive 
         ? 'text-primary' 
-        : scrolled 
-          ? 'text-charcoal/60 dark:text-cream/60' 
+        : isDarkText
+          ? 'text-charcoal/60 dark:text-cream/60 hover:text-charcoal dark:hover:text-white' 
           : 'text-white/80 hover:text-white'
     }`;
 
+  const navBackgroundClass = scrolled 
+    ? 'bg-white/95 dark:bg-background-dark/95 backdrop-blur-xl border-b border-charcoal/5 dark:border-white/5 shadow-sm' 
+    : 'bg-transparent';
+
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 flex items-center px-6 h-20 transition-all duration-500 ${scrolled ? 'bg-white/95 dark:bg-background-dark/95 backdrop-blur-xl border-b border-charcoal/5 dark:border-white/5 shadow-sm' : 'bg-transparent'}`}>
+    <nav className={`fixed top-0 left-0 right-0 z-50 flex items-center px-6 h-20 transition-all duration-500 ${navBackgroundClass}`}>
       <Link to="/" className="flex items-center group">
-        <div className={`flex size-10 items-center justify-center rounded-xl transition-all duration-300 ${scrolled ? 'bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white' : 'bg-white/10 text-white group-hover:bg-white group-hover:text-primary'}`}>
+        <div className={`flex size-10 items-center justify-center rounded-xl transition-all duration-300 ${isDarkText ? 'bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white' : 'bg-white/10 text-white group-hover:bg-white group-hover:text-primary'}`}>
           <span className="material-symbols-outlined text-[24px]">bakery_dining</span>
         </div>
         <h2 className={`ml-3 text-xl font-extrabold tracking-tight transition-colors duration-300 ${textColorClass}`}>
@@ -100,10 +111,9 @@ export const Footer: React.FC = () => {
 
         <div>
           <h4 className="font-extrabold text-charcoal dark:text-white mb-6 uppercase tracking-widest text-xs">Visit</h4>
-          <p className="text-charcoal/60 dark:text-cream/60 mb-2">123 Baker Street, City Center</p>
-          <p className="text-charcoal/60 dark:text-cream/60 mb-6">City 45001, IN</p>
-          <p className="text-charcoal/60 dark:text-cream/60">Mon-Fri: 7am — 8pm</p>
-          <p className="text-charcoal/60 dark:text-cream/60">Sat-Sun: 8am — 9pm</p>
+          <p className="text-charcoal/60 dark:text-cream/60 mb-2">Priya Crossroads, Sevasi</p>
+          <p className="text-charcoal/60 dark:text-cream/60 mb-6">Vadodara, Gujarat 391410</p>
+          <p className="text-charcoal/60 dark:text-cream/60">Mon-Sun: 9am — 9pm</p>
         </div>
 
         <div>
@@ -125,7 +135,7 @@ export const Footer: React.FC = () => {
         </div>
       </div>
       <div className="max-w-7xl mx-auto mt-16 pt-8 border-t border-charcoal/5 dark:border-white/5 text-center text-xs text-charcoal/40 dark:text-cream/40">
-        © 2024 Shree Surti Bakery. Hand-baked in the city.
+        © 2024 Shree Surti Bakery. Hand-baked in Vadodara.
       </div>
     </footer>
   );

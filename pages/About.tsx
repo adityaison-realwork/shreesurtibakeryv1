@@ -3,7 +3,7 @@ import { IMAGES } from '../constants';
 
 const About: React.FC = () => {
   return (
-    <div className="min-h-screen bg-background-light dark:bg-background-dark pt-32 pb-24">
+    <div className="min-h-screen bg-background-light dark:bg-background-dark pt-32 pb-24 overflow-x-hidden">
       {/* Editorial Header */}
       <div className="container mx-auto px-6 mb-24">
         <div className="max-w-4xl mx-auto text-center">
@@ -49,98 +49,112 @@ const About: React.FC = () => {
         </div>
       </section>
 
-      {/* 2. The Process */}
-      <section className="container mx-auto px-6 mb-32">
-         <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-4xl font-black text-charcoal dark:text-white mb-6">The 48-Hour Ritual</h2>
+      {/* 2. The Process - CREATIVE REDESIGN (Timeline Journey) */}
+      <section className="container mx-auto px-6 mb-32 relative">
+         <div className="text-center max-w-3xl mx-auto mb-20">
+            <span className="text-primary font-black uppercase tracking-widest text-xs mb-2 block">Methodology</span>
+            <h2 className="text-4xl md:text-6xl font-black text-charcoal dark:text-white mb-6">The Symphony of Dough</h2>
             <p className="text-xl text-charcoal/60 dark:text-cream/60">
-              Great bread cannot be hurried. Our process is a labor of love that spans two full days.
+              A 4-movement masterpiece performed daily. No shortcuts, just time and temperature.
             </p>
          </div>
 
-         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+         <div className="relative max-w-5xl mx-auto">
+            {/* Timeline Spine: Left aligned on mobile, Center on desktop */}
+            <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-primary/0 via-primary/50 to-primary/0 md:-translate-x-1/2"></div>
+
             {[
               { 
                 step: "01", 
-                title: "The Mix", 
-                desc: "We blend organic, stone-ground flour with filtered water and our wild yeast starter. This initial mix, or 'autolyse', allows the flour to fully hydrate." 
+                title: "The Awakening", 
+                subtitle: "Autolyse • 2 Hours",
+                desc: "Flour meets water. We gently mix organic grains with filtered water and let them rest. This passive phase allows the gluten to organize itself naturally before the yeast arrives.",
+                icon: "water_drop"
               },
               { 
                 step: "02", 
-                title: "The Rise", 
-                desc: "The dough rests for 24-36 hours in a temperature-controlled environment. This slow fermentation breaks down gluten and unlocks deep, complex flavors." 
+                title: "The Long Sleep", 
+                subtitle: "Fermentation • 24-36 Hours",
+                desc: "Our wild yeast culture is folded in. The dough naps in a cool room, slowly developing the signature tang and airy structure that defines a true sourdough.",
+                icon: "hourglass_bottom"
               },
               { 
                 step: "03", 
-                title: "The Hearth", 
-                desc: "Bread is loaded onto the hot stone hearth of our deck ovens. High heat and steam create the signature blistered crust and open airy crumb." 
+                title: "The Sculpture", 
+                subtitle: "Shaping • 4 Hours",
+                desc: "Each loaf is divided and shaped by human hands. No machines. We create surface tension that will later bloom into a beautiful 'ear' in the oven.",
+                icon: "hand_gesture"
+              },
+              { 
+                step: "04", 
+                title: "The Transformation", 
+                subtitle: "Baking • 45 Mins",
+                desc: "High heat and steam. The loaves hit the hot deck of our stone oven. The crust caramelizes to a deep chestnut hue while the inside remains moist and custardy.",
+                icon: "local_fire_department"
               }
-            ].map((item) => (
-              <div key={item.step} className="bg-cream dark:bg-white/5 p-8 rounded-[2rem] relative overflow-hidden group hover:bg-white dark:hover:bg-surface-dark transition-colors duration-300">
-                 <span className="text-[120px] font-black text-charcoal/5 dark:text-white/5 absolute -top-4 -right-4 leading-none select-none">{item.step}</span>
-                 <h3 className="text-2xl font-black text-charcoal dark:text-white mb-4 relative z-10">{item.title}</h3>
-                 <p className="text-charcoal/70 dark:text-cream/70 relative z-10 leading-relaxed">{item.desc}</p>
+            ].map((item, index) => (
+              <div key={item.step} className={`relative flex flex-col md:flex-row items-start md:items-center mb-16 md:mb-24 ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
+                 
+                 {/* Spacer for desktop layout balance */}
+                 <div className="hidden md:block md:w-1/2"></div>
+
+                 {/* Timeline Node */}
+                 <div className="absolute left-0 md:left-1/2 md:-translate-x-1/2 size-16 rounded-full bg-background-light dark:bg-background-dark border-4 border-white dark:border-surface-dark shadow-xl z-10 flex items-center justify-center">
+                    <div className="size-10 rounded-full bg-primary text-white flex items-center justify-center">
+                       <span className="material-symbols-outlined text-xl">{item.icon}</span>
+                    </div>
+                 </div>
+
+                 {/* Content Card */}
+                 <div className={`pl-24 md:pl-0 md:w-1/2 ${index % 2 === 0 ? 'md:pr-16 md:text-right' : 'md:pl-16 md:text-left'}`}>
+                    {/* Watermark Number */}
+                    <span className={`text-6xl md:text-8xl font-black text-charcoal/5 dark:text-white/5 absolute -top-8 md:-top-12 select-none z-0 hidden md:block ${index % 2 === 0 ? 'right-0' : 'left-0'}`}>{item.step}</span>
+                    <span className="md:hidden text-6xl font-black text-charcoal/5 dark:text-white/5 absolute -top-6 right-0 select-none z-0">{item.step}</span>
+                    
+                    <div className="relative z-10">
+                       <h3 className="text-2xl md:text-3xl font-black text-charcoal dark:text-white mb-2">{item.title}</h3>
+                       <span className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-widest mb-4">{item.subtitle}</span>
+                       <p className="text-charcoal/70 dark:text-cream/70 leading-relaxed text-sm md:text-base">
+                         {item.desc}
+                       </p>
+                    </div>
+                 </div>
               </div>
             ))}
          </div>
       </section>
 
-      {/* 3. Moral Principles */}
-      <section className="container mx-auto px-6">
-        <div className="bg-charcoal text-white rounded-[3rem] p-8 md:p-20 relative overflow-hidden">
-           <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary rounded-full blur-[200px] opacity-20"></div>
-           
-           <h2 className="text-4xl md:text-5xl font-black mb-12 relative z-10 text-center md:text-left">Our Promise to You & The Earth</h2>
-           
-           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 relative z-10">
-              <div className="flex gap-6">
-                 <div className="size-16 rounded-full bg-white/10 flex items-center justify-center shrink-0">
-                    <span className="material-symbols-outlined text-3xl text-primary">recycling</span>
-                 </div>
-                 <div>
-                    <h3 className="text-2xl font-bold mb-2">Zero Waste Philosophy</h3>
-                    <p className="text-white/70 leading-relaxed">
-                       We bake in small batches to minimize surplus. Any day-old bread is donated to local shelters or repurposed into breadcrumbs and puddings. Nothing goes to the bin.
-                    </p>
-                 </div>
-              </div>
+      {/* 3. Principles - CREATIVE REDESIGN (Horizontal Scroll) */}
+      <section className="py-20 bg-charcoal dark:bg-black/20 text-white overflow-hidden relative">
+         {/* Background accent */}
+         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary rounded-full blur-[200px] opacity-10 pointer-events-none"></div>
 
-              <div className="flex gap-6">
-                 <div className="size-16 rounded-full bg-white/10 flex items-center justify-center shrink-0">
-                    <span className="material-symbols-outlined text-3xl text-primary">handshake</span>
-                 </div>
-                 <div>
-                    <h3 className="text-2xl font-bold mb-2">Local First</h3>
-                    <p className="text-white/70 leading-relaxed">
-                       Our flour comes from mills within 100 miles. Our milk is from a local cooperative. By supporting local producers, we reduce our carbon footprint and ensure peak freshness.
-                    </p>
-                 </div>
-              </div>
+        <div className="container mx-auto px-6 mb-12">
+           <h2 className="text-4xl font-black mb-4">The Baker's Oath</h2>
+           <p className="text-white/60">The non-negotiables that guide our hands.</p>
+        </div>
 
-              <div className="flex gap-6">
-                 <div className="size-16 rounded-full bg-white/10 flex items-center justify-center shrink-0">
-                    <span className="material-symbols-outlined text-3xl text-primary">verified_user</span>
-                 </div>
-                 <div>
-                    <h3 className="text-2xl font-bold mb-2">Clean Label</h3>
-                    <p className="text-white/70 leading-relaxed">
-                       No preservatives. No dough conditioners. No unpronounceable chemicals. Just flour, water, salt, and yeast. The way bread was meant to be.
-                    </p>
-                 </div>
-              </div>
-              
-              <div className="flex gap-6">
-                 <div className="size-16 rounded-full bg-white/10 flex items-center justify-center shrink-0">
-                    <span className="material-symbols-outlined text-3xl text-primary">diversity_1</span>
-                 </div>
-                 <div>
-                    <h3 className="text-2xl font-bold mb-2">People Over Profit</h3>
-                    <p className="text-white/70 leading-relaxed">
-                       We pay our bakers a living wage and foster a culture of respect and creativity. Happy bakers make better bread. It's that simple.
-                    </p>
-                 </div>
-              </div>
-           </div>
+        {/* Horizontal Scroll Container (Snap) */}
+        <div className="flex overflow-x-auto snap-x snap-mandatory gap-6 px-6 pb-12 no-scrollbar md:grid md:grid-cols-4 md:px-6 md:pb-0 container mx-auto">
+           {[
+             { title: "Zero Waste", desc: "Day-old bread feeds the shelter, not the bin.", color: "bg-orange-500", icon: "recycling" },
+             { title: "Local First", desc: "Flour from 100 miles. Milk from down the road.", color: "bg-blue-500", icon: "location_on" },
+             { title: "Clean Label", desc: "Pronounceable ingredients only. No chemistry set.", color: "bg-green-500", icon: "science_off" },
+             { title: "Fair Wages", desc: "Happy bakers make better bread. Simple math.", color: "bg-purple-500", icon: "groups" }
+           ].map((item, i) => (
+             <div key={i} className={`min-w-[85vw] md:min-w-0 snap-center p-8 rounded-[2.5rem] relative overflow-hidden group bg-white/5 border border-white/10 flex flex-col justify-between h-[300px] md:h-auto`}>
+                <div className={`absolute -top-10 -right-10 p-24 rounded-full blur-[50px] opacity-20 ${item.color} group-hover:opacity-40 transition-opacity`}></div>
+                
+                <div className="size-14 rounded-2xl bg-white/10 flex items-center justify-center mb-6 backdrop-blur-md relative z-10 group-hover:scale-110 transition-transform duration-500">
+                   <span className="material-symbols-outlined text-2xl">{item.icon}</span>
+                </div>
+                
+                <div className="relative z-10">
+                   <h3 className="text-2xl font-black mb-3">{item.title}</h3>
+                   <p className="text-white/60 leading-relaxed text-sm">{item.desc}</p>
+                </div>
+             </div>
+           ))}
         </div>
       </section>
     </div>

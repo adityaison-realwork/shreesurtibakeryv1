@@ -14,15 +14,15 @@ export const IMAGES = {
   latte: "https://lh3.googleusercontent.com/aida-public/AB6AXuCeNc1-uLdU43MVvUV-NfhfA5lvUORSfTR2hYSqkR3sqWJBZgX1EdG9ma28MDzzzdnJZraaqkf42sr0MSejJ8RwIobVwTBsV0yehi8TOng1O4AzBcUswl1_xxewf8wyvkroAQ5aYlS58N2GeD5-OFrqetUjspmq_Ksf5OOgjujwosIkY2a3h-LSlusyRYiD7CNXr5ep1jaHe2nFrXVTXy5Bchi4Q3X6d2nbPa3LxT41MYFC3dJttVUBvzHPWAJsE7j1MXulMpDZ9LeN",
   texture: "https://lh3.googleusercontent.com/aida-public/AB6AXuAFEwEG1YyAr7Rq3UCkeQgnFDkwdTQoBa8bs9gSGMyXaaw40xZg29kl4KgBqgz34v3zQYAt0PZ5hQriJzyf2AVYab99mLpU4IPZQfQBhST7i1doIEdCBBL6vzvy3YtYO9iDf3T9HfcdAnY-y0D_0SDEL73PowHW6_vH_7Hwwx1H-fDm8796r-pRm9EvOySBiwfNdOK6jj-dMPXmh5Rk9_cXaVFw1wkdMJfwVeIOUl_XNtrNtxYWnhps3IRyRXBzSxUtHzJCLdz8nNUQ",
   bagel: "https://lh3.googleusercontent.com/aida-public/AB6AXuCjXXqHYTAwTHzijwx1rAU5PhcZjPEXF81VqEjmuFqiwOaYMCtmQy1SwyhNWGtwCsK5XM9vTBrKJWELvcKvqyuFKoyCFV2OWNUxqOPAP5ZQFSKiYODFvH9kOrR63XIfyBQFAJQ4dx_ceOXFU9MVhCfAa86QMBskVyqNxgvyyBGIASQbXMeV4zL7bTROtYLvqruskMyP4e1K4t8ktO4ycWvhfMNzkT02gnaMgmYsOAQDd_SllRbLu4IaynFe708zx1cbo2emWD0nVS1_",
-  hero_desktop: "desktop-final.jpeg",
-  hero_mobile: "mobile-final.jpeg"
+  hero_desktop: "https://i.ibb.co/HDyDyhx9/desktop-final.jpg",
+  hero_mobile: "https://i.ibb.co/wNWrkMq3/mobile-final1.jpg"
 };
 
 export const PRODUCTS: Product[] = [
   {
     id: '1',
     name: 'Morning Bun',
-    price: 4.50,
+    price: 550,
     category: 'Sweet',
     description: 'Sticky, sweet, and perfectly flaky with cinnamon and orange zest.',
     image: IMAGES.morning_bun,
@@ -32,7 +32,7 @@ export const PRODUCTS: Product[] = [
   {
     id: '2',
     name: 'Sourdough Loaf',
-    price: 8.00,
+    price: 800,
     category: 'Sourdough',
     description: 'Tangy, chewy, and baked wild in the heart of the city.',
     image: IMAGES.sourdough,
@@ -42,7 +42,7 @@ export const PRODUCTS: Product[] = [
   {
     id: '3',
     name: 'Berry Danish',
-    price: 4.50,
+    price: 600,
     category: 'Sweet',
     description: 'Flaky pastry filled with fresh berry jam.',
     image: IMAGES.danish,
@@ -52,7 +52,7 @@ export const PRODUCTS: Product[] = [
   {
     id: '4',
     name: 'Sugar Cruffin',
-    price: 5.00,
+    price: 500,
     category: 'Sweet',
     description: 'A croissant-muffin hybrid dusted in sugar.',
     image: IMAGES.cruffin,
@@ -61,7 +61,7 @@ export const PRODUCTS: Product[] = [
   {
     id: '5',
     name: 'Country Loaf',
-    price: 8.00,
+    price: 750,
     category: 'Sourdough',
     description: 'Rustic and hearty, perfect for sandwiches.',
     image: IMAGES.country_loaf,
@@ -69,7 +69,7 @@ export const PRODUCTS: Product[] = [
   {
     id: '6',
     name: 'Almond Croissant',
-    price: 5.25,
+    price: 650,
     category: 'Sweet',
     description: 'Double baked with almond cream and topped with sliced almonds.',
     image: IMAGES.almond_croissant,
@@ -77,7 +77,7 @@ export const PRODUCTS: Product[] = [
   {
     id: '7',
     name: 'Macaron Box',
-    price: 12.00,
+    price: 1000,
     category: 'Sweet',
     description: 'Assorted flavors of delicate French macarons.',
     image: IMAGES.macarons,
@@ -85,7 +85,7 @@ export const PRODUCTS: Product[] = [
   {
     id: '8',
     name: 'Barista\'s Choice',
-    price: 4.00,
+    price: 500,
     category: 'Coffee',
     description: 'Perfectly roasted beans brewed to perfection.',
     image: IMAGES.latte,
@@ -93,7 +93,7 @@ export const PRODUCTS: Product[] = [
   {
     id: '9',
     name: 'Everything Bagel',
-    price: 3.00,
+    price: 500,
     category: 'Savory',
     description: 'Toasted perfection with seeds and salt.',
     image: IMAGES.bagel,

@@ -9,18 +9,25 @@ const Gallery: React.FC = () => {
   }));
 
   const getGridStyle = (index: number) => {
-    // Creating a varied grid layout
-    // 0: Horizontal (2x1)
-    // 1: Square (1x1)
-    // 2: Vertical (1x2)
-    // 3: Square (1x1)
-    // 4: Big Square (2x2)
     const i = index % 8;
-    if (i === 0) return 'md:col-span-2 md:row-span-1';
-    if (i === 2) return 'md:col-span-1 md:row-span-2';
-    if (i === 4) return 'md:col-span-2 md:row-span-2';
-    if (i === 6) return 'md:col-span-2 md:row-span-1';
-    return 'md:col-span-1 md:row-span-1';
+    
+    // Base Layout (Mobile - 2 Columns)
+    // Creating a mosaic on mobile
+    let mobileClass = 'col-span-1 row-span-1';
+    
+    if (i === 0) mobileClass = 'col-span-2 row-span-2'; // Large Square
+    else if (i === 2) mobileClass = 'col-span-1 row-span-2'; // Tall
+    else if (i === 4) mobileClass = 'col-span-2 row-span-1'; // Wide
+
+    // Desktop Layout (MD - 3+ Columns)
+    let desktopClass = 'md:col-span-1 md:row-span-1';
+    
+    if (i === 0) desktopClass = 'md:col-span-2 md:row-span-1'; // Wide
+    else if (i === 2) desktopClass = 'md:col-span-1 md:row-span-2'; // Tall
+    else if (i === 4) desktopClass = 'md:col-span-2 md:row-span-2'; // Large Square
+    else if (i === 6) desktopClass = 'md:col-span-2 md:row-span-1'; // Wide
+
+    return `${mobileClass} ${desktopClass}`;
   };
 
   return (
@@ -36,7 +43,8 @@ const Gallery: React.FC = () => {
       </div>
 
       <div className="container mx-auto px-6">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-[250px] md:auto-rows-[300px] grid-flow-dense">
+        {/* Updated grid container with dense flow and 2-column base for mobile */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-[200px] grid-flow-dense">
           {galleryItems.map((item, index) => (
             <div key={item.id} className={`group relative rounded-[2rem] overflow-hidden shadow-lg ${getGridStyle(index)}`}>
               <img 
@@ -45,7 +53,7 @@ const Gallery: React.FC = () => {
                 className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                 <span className="text-white font-black text-lg tracking-wider uppercase border border-white/30 px-6 py-2 rounded-full backdrop-blur-md">
+                 <span className="text-white font-black text-xs md:text-lg tracking-wider uppercase border border-white/30 px-4 py-2 md:px-6 md:py-2 rounded-full backdrop-blur-md text-center mx-4">
                    {item.title}
                  </span>
               </div>

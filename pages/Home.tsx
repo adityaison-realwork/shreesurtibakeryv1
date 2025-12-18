@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { IMAGES, PRODUCTS } from '../constants';
+import { IMAGES, PRODUCTS, REVIEWS } from '../constants';
 
 const Home: React.FC = () => {
   const featuredProducts = PRODUCTS.filter(p => p.featured);
@@ -88,7 +88,7 @@ const Home: React.FC = () => {
           </Link>
         </div>
         
-        <div className="flex overflow-x-auto gap-4 md:gap-8 px-6 no-scrollbar snap-x snap-mandatory">
+        <div className="flex overflow-x-auto gap-4 md:gap-8 px-6 no-scrollbar snap-x snap-mandatory pb-8">
           {featuredProducts.map((p) => (
             <div key={p.id} className="min-w-[280px] md:min-w-[400px] snap-center group">
               <div className="relative h-[400px] md:h-[500px] rounded-[2rem] md:rounded-[2.5rem] overflow-hidden mb-4 md:mb-6 shadow-xl md:shadow-2xl">
@@ -100,17 +100,76 @@ const Home: React.FC = () => {
                       <h3 className="text-2xl md:text-3xl font-black text-white leading-tight mb-1 md:mb-2">{p.name}</h3>
                       <p className="text-white/70 text-xs md:text-sm font-medium">{p.description}</p>
                     </div>
-                    <span className="text-primary font-black text-xl md:text-2xl">${p.price.toFixed(2)}</span>
+                    <span className="text-primary font-black text-xl md:text-2xl">₹{p.price}</span>
                   </div>
                 </div>
               </div>
             </div>
           ))}
         </div>
+
+        {/* New CTA Button */}
+        <div className="flex justify-center mt-6 md:hidden">
+          <Link to="/menu" className="px-10 py-4 bg-charcoal dark:bg-surface-dark text-white rounded-full font-bold uppercase tracking-widest text-xs shadow-lg">
+             Explore Full Menu
+          </Link>
+        </div>
+      </section>
+
+      {/* Reviews Section */}
+      <section className="py-16 bg-cream dark:bg-white/5">
+        <div className="container mx-auto px-6 mb-12 text-center">
+           <span className="text-primary font-black uppercase tracking-[0.2em] text-[10px] mb-2 block">Testimonials</span>
+           <h2 className="text-3xl md:text-4xl font-black text-charcoal dark:text-white">Love from the Neighborhood</h2>
+        </div>
+        <div className="container mx-auto px-6 overflow-x-auto no-scrollbar">
+           <div className="flex gap-6 md:grid md:grid-cols-3 min-w-[300px] pb-4">
+              {REVIEWS.map((review) => (
+                 <div key={review.id} className="min-w-[300px] p-8 bg-white dark:bg-surface-dark rounded-[2rem] shadow-sm border border-charcoal/5 dark:border-white/5 flex flex-col">
+                    <div className="flex gap-1 text-primary mb-4">
+                      {[...Array(5)].map((_, i) => (
+                        <span key={i} className="material-symbols-outlined text-lg" style={{ fontVariationSettings: `'FILL' ${i < review.rating ? 1 : 0}` }}>star</span>
+                      ))}
+                    </div>
+                    <p className="italic text-charcoal/70 dark:text-cream/70 mb-6 flex-grow">"{review.text}"</p>
+                    <div className="flex items-center gap-3">
+                       <img src={review.avatar} alt={review.author} className="size-10 rounded-full" />
+                       <div>
+                          <p className="font-bold text-sm text-charcoal dark:text-white">{review.author}</p>
+                          <p className="text-[10px] uppercase font-bold text-charcoal/40 dark:text-cream/40">{review.date}</p>
+                       </div>
+                    </div>
+                 </div>
+              ))}
+           </div>
+        </div>
+      </section>
+
+      {/* Contact Preview Section */}
+      <section className="py-16 md:py-24">
+        <div className="container mx-auto px-6">
+           <div className="bg-charcoal dark:bg-surface-dark rounded-[3rem] p-8 md:p-16 text-center text-white relative overflow-hidden">
+               <div className="absolute top-0 right-0 w-64 h-64 bg-primary/20 rounded-full blur-[80px]"></div>
+               <div className="relative z-10 max-w-2xl mx-auto">
+                 <h2 className="text-3xl md:text-5xl font-black mb-6">Visit Us Today</h2>
+                 <p className="text-white/70 mb-8 text-lg">
+                   Surti Bakery, Priya Crossroads, Opp. Priya Talkies,<br className="hidden md:block"/> Sevasi, Vadodara, Gujarat 391410
+                 </p>
+                 <div className="flex flex-col md:flex-row justify-center gap-4">
+                    <Link to="/contact" className="px-8 py-4 bg-primary text-white rounded-full font-bold uppercase tracking-widest hover:bg-primary-dark transition-all">
+                       Get Directions
+                    </Link>
+                    <a href="tel:9484848148" className="px-8 py-4 bg-white/10 text-white border border-white/20 rounded-full font-bold uppercase tracking-widest hover:bg-white/20 transition-all">
+                       Call +91 94848 48148
+                    </a>
+                 </div>
+               </div>
+           </div>
+        </div>
       </section>
 
       {/* Call to Action - Immersive */}
-      <section className="px-4 md:px-6 py-16 md:py-24">
+      <section className="px-4 md:px-6 py-16 md:py-24 pt-0">
         <div className="max-w-6xl mx-auto relative rounded-[2.5rem] md:rounded-[3rem] overflow-hidden bg-charcoal h-[400px] md:h-[500px] flex items-center justify-center text-center px-6">
            <img src={IMAGES.texture} className="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-overlay" alt="Texture" />
            <div className="relative z-10 max-w-2xl">
